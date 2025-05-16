@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# Env files
+.env
+
+# IDE specific files
+.idea/
+*.iml
