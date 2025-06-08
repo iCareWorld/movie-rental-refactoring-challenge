@@ -106,6 +106,19 @@ describe("store", () => {
             expect(statementTokens[9]).toBe('15')
         })
 
+        it("full text should match",() => {
+            const statement = customer.statement();
+
+            expect(statement).toBe(
+                "Rental record for John Smith\n"+
+                "\tCinderella\t3\n"+
+                "\tStar Wars\t6.5\n"+
+                "\tGladiator\t15\n"+
+                "Amount owed is 24.5\n"+
+                "You earned 4 frequent renter points."
+            );
+        });
+
     })
 
 })
