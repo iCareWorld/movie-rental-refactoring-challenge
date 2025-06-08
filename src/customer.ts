@@ -1,8 +1,9 @@
 import { Movie } from "./movie";
 import { Rental } from "./rental";
+import { IStatementData, StatementGenerator } from "./statementGenerator";
 
 export class Customer {
-   
+
     readonly rentals: Rental[] = [];
 
     constructor(readonly name: string) { }
@@ -13,27 +14,28 @@ export class Customer {
         return rental;
     }
 
-    getTotalAmount(): number {
+    getStatementData(): IStatementData {
+        return {
+            customerName: this.name,
+            rentalLineItems: this.rentals.map(rental => ({
+                title: rental.movieTitle,
+                charge: rental.getAmount()
+            })),
+            totalAmount: this.getTotalAmount(),
+            totalFrequentRenterPoints: this.getTotalFrequentRenterPoints(),
+        };
+    }
+
+    statement(): string {
+        return StatementGenerator.generate(this.getStatementData());
+    }
+
+    private getTotalAmount(): number {
         return this.rentals.reduce((sum, rental) => sum + rental.getAmount(), 0);
     }
 
-    getTotalFrequentRenterPoints(): number {
+    private getTotalFrequentRenterPoints(): number {
         return this.rentals.reduce((sum, rental) => sum + rental.getFrequentRenterPoints(), 0);
     }
 
-    statement() {
-        const totalAmount = this.getTotalAmount();
-        const frequentRenterPoints = this.getTotalFrequentRenterPoints();
-
-        let result = `Rental record for ${this.name}\n`;
-
-        // determine amounts for each line
-        for (const rental of this.rentals) {
-            result += `\t${rental.movieTitle}\t${rental.getAmount()}\n`;
-        }
-        // add footer lines
-        result += `Amount owed is ${totalAmount}\n`;
-        result += `You earned ${frequentRenterPoints} frequent renter points.`;
-        return result
-    }
 }
