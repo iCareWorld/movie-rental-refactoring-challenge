@@ -26,8 +26,8 @@ export class Customer {
         };
     }
 
-    statement(): string {
-        return StatementGenerator.generate(this.getStatementData());
+    statement(generatorFn : (data: IStatementData) => string = StatementGenerator.generate){
+        return generatorFn(this.getStatementData());
     }
 
     private getTotalAmount(): number {
