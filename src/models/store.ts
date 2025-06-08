@@ -1,6 +1,9 @@
 import { Customer } from "./customer";
 import { Movie } from "./movie";
-import { ChildrenPriceCode, IPriceCode, NewReleasePriceCode, RegularPriceCode } from "./priceCodes";
+import { ChildrenPriceCode } from "./priceCodes/childrenPriceCode";
+import { NewReleasePriceCode } from "./priceCodes/newPriceCode";
+import { IPriceCode } from "./priceCodes/priceCode";
+import { RegularPriceCode } from "./priceCodes/regularPriceCode";
 
 export class Store {
     static readonly PRICE_CODE_REGULAR: IPriceCode = new RegularPriceCode();

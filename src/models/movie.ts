@@ -1,4 +1,4 @@
-import { IPriceCode } from "./priceCodes";
+import { IPriceCode } from "./priceCodes/priceCode";
 
 export class Movie {
 

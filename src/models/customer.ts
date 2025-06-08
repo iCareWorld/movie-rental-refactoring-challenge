@@ -1,6 +1,6 @@
 import { Movie } from "./movie";
 import { Rental } from "./rental";
-import { IStatementData, StatementGenerator } from "./statementGenerator";
+import { IStatementData, StatementGenerator } from "../services/statementGenerator";
 
 export class Customer {
 
