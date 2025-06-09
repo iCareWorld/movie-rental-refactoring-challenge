@@ -1,11 +1,16 @@
 import { Customer } from "./customer"
 import { Movie } from "./movie"
-import { PriceCode } from "./price-code"
+import {
+    ChildrensPricingStrategy,
+    RegularPricingStrategy,
+    NewReleasePricingStrategy,
+    PricingStrategy
+} from "./pricing"
 
 export class Store {
-    static readonly PRICE_CODE_REGULAR: PriceCode = new PriceCode('REGULAR')
-    static readonly PRICE_CODE_CHILDREN: PriceCode = new PriceCode('CHILDREN')
-    static readonly PRICE_CODE_NEW_RELEASE: PriceCode = new PriceCode('NEW RELEASE')
+    static readonly PRICE_CODE_REGULAR = new RegularPricingStrategy()
+    static readonly PRICE_CODE_CHILDREN = new ChildrensPricingStrategy()
+    static readonly PRICE_CODE_NEW_RELEASE = new NewReleasePricingStrategy()
 
     movies: Movie[]
     customers: Customer[]
@@ -15,7 +20,7 @@ export class Store {
         this.customers = []
     }
 
-    addMovie(name: string, priceCode: PriceCode) {
+    addMovie(name: string, priceCode: PricingStrategy) {
         let movie = new Movie(name, priceCode)
         this.movies.push(movie)
         return movie
