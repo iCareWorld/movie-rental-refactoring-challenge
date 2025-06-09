@@ -1,16 +1,7 @@
-class PriceCode {
-    constructor(public readonly name: string) {}
-}
+import { Movie } from "./movie";
+import { Rental } from "./rental";
 
-class Movie {
-    constructor(public readonly title: string, public readonly priceCode: PriceCode) {}
-}
-
-class Rental {
-    constructor(public readonly movie: Movie, public readonly daysRented: number) {}
-}
-
-class Customer {
+export class Customer {
     name: string;
     rentals: Rental[];
 
@@ -52,7 +43,7 @@ class Customer {
             frequentRenterPoints++;
             // add bonus for a two-day new-release rental
             if ((each.movie.priceCode.name === 'NEW RELEASE') && (each.daysRented > 1)) {
-                frequentRenterPoints ++
+                frequentRenterPoints++
             }
             // show figures for this rental
             result += "\t" + each.movie.title + "\t" + thisAmount + "\n"
@@ -62,31 +53,5 @@ class Customer {
         result += "Amount owed is " + totalAmount + "\n"
         result += "You earned " + frequentRenterPoints + " frequent renter points."
         return result
-    }
-}
-
-export class Store {
-    static readonly PRICE_CODE_REGULAR: PriceCode = new PriceCode('REGULAR')
-    static readonly PRICE_CODE_CHILDREN: PriceCode = new PriceCode('CHILDREN')
-    static readonly PRICE_CODE_NEW_RELEASE: PriceCode = new PriceCode('NEW RELEASE')
-
-    movies: Movie[]
-    customers: Customer[]
-
-    constructor() {
-        this.movies = []
-        this.customers = []
-    }
-
-    addMovie(name: string, priceCode: PriceCode) {
-        let movie = new Movie(name, priceCode)
-        this.movies.push(movie)
-        return movie
-    }
-
-    addCustomer(name: string) {
-        let customer = new Customer(name)
-        this.customers.push(customer)
-        return customer
     }
 }
