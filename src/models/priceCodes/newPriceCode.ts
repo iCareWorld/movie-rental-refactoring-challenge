@@ -1,7 +1,11 @@
 import { PriceCode } from "./priceCode";
 
+/**
+ * Represents the pricing strategy for a NewRelease category movie.
+ * @extends {PriceCode}
+ */
 export class NewReleasePriceCode extends PriceCode {
-
+    
     get name(): string {
         return 'NEW RELEASE';
     }

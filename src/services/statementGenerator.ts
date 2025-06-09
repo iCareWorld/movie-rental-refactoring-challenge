@@ -5,8 +5,16 @@ export interface IStatementData {
     totalFrequentRenterPoints: number;
 }
 
+/**
+ * A static class for generating plain-text rental statements.
+ */
 export class StatementGenerator {
 
+    /**
+     * Generates a formatted plain-text rental statement from the provided data.
+     * @param {IStatementData} data  An object containing all the necessary information to generate the statement.
+     * @returns {string} A formatted, multi-line string representing the customer's rental statement.
+     */
     static generate(data: IStatementData): string {
         let statementText = `Rental record for ${data.customerName}\n`;
 

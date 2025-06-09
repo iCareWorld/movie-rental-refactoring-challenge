@@ -1,7 +1,11 @@
 import { PriceCode } from "./priceCode";
 
+/**
+ * Represents the pricing strategy for a Regular category movie.
+ * @extends {PriceCode}
+ */
 export class RegularPriceCode extends PriceCode {
-
+    
     get name(): string {
         return 'REGULAR';
     }
