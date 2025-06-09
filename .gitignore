@@ -19,3 +19,5 @@ dist/
 # IDE specific files
 .idea/
 *.iml
+
+coverage
