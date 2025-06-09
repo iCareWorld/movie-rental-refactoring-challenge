@@ -8,8 +8,13 @@ import {
 } from "./pricing"
 
 export class Store {
+    /** @deprecated Use `new RegularPricingStrategy()` instead */
     static readonly PRICE_CODE_REGULAR = new RegularPricingStrategy()
+    
+    /** @deprecated Use `new ChildrensPricingStrategy()` instead */
     static readonly PRICE_CODE_CHILDREN = new ChildrensPricingStrategy()
+    
+    /** @deprecated Use `new NewReleasePricingStrategy()` instead */
     static readonly PRICE_CODE_NEW_RELEASE = new NewReleasePricingStrategy()
 
     movies: Movie[]
