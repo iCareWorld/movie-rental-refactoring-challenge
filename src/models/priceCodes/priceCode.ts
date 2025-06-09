@@ -11,3 +11,5 @@ export abstract class PriceCode implements IPriceCode {
         return 1;
     }
 }
+
+export type PriceCodeType = new () => IPriceCode;

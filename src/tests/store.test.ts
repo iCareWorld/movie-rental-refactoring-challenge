@@ -1,18 +1,44 @@
+import { Customer } from '../models/customer';
+import { Movie } from '../models/movie';
+import { ChildrenPriceCode } from '../models/priceCodes/childrenPriceCode';
+import { NewReleasePriceCode } from '../models/priceCodes/newPriceCode';
+import { RegularPriceCode } from '../models/priceCodes/regularPriceCode';
 import { Store } from '../models/store';
+import { PriceCodeRegistry } from '../services/priceCodeRegistry';
 
-const store = new Store();
 
-const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN);
-const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR);
-const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE);
-
-const john_smith = store.addCustomer('John Smith');
-
-john_smith.addRental(cinderella, 5);
-john_smith.addRental(star_wars, 5);
-john_smith.addRental(gladiator, 5);
 
 describe("store", () => {
+
+    let store: Store;
+    let registry: PriceCodeRegistry;
+    let customer: Customer;
+    let cinderella: Movie;
+    let star_wars: Movie;
+    let gladiator: Movie;
+
+    beforeEach(() => {
+        registry = PriceCodeRegistry.getInstance();
+
+        registry.clear();
+
+        registry.register(RegularPriceCode);
+        registry.register(NewReleasePriceCode);
+        registry.register(ChildrenPriceCode);
+
+        store = new Store();
+
+        cinderella = store.addMovie('Cinderella', ChildrenPriceCode);
+        star_wars  = store.addMovie('Star Wars', RegularPriceCode);
+        gladiator  = store.addMovie('Gladiator', NewReleasePriceCode);
+
+        customer=store.addCustomer('John Smith')
+
+        customer.addRental(cinderella, 5);
+        customer.addRental(star_wars, 5);
+        customer.addRental(gladiator, 5);
+        
+    });
 
     describe("movies", () => {
 
@@ -43,7 +69,6 @@ describe("store", () => {
 
     })
 
-    let customer = store.customers[0];
 
     describe("rentals", () => {
 
