@@ -1,4 +1,4 @@
-import { NewReleasePriceCode } from "../models/priceCodes/newPriceCode";
+import { NewReleasePriceCode } from "../models/priceCodes/newReleasePriceCode";
 import { RegularPriceCode } from "../models/priceCodes/regularPriceCode";
 import { PriceCodeRegistry } from "../services/priceCodeRegistry";
 

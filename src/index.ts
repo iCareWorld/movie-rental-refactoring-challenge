@@ -1,5 +1,5 @@
 import { ChildrenPriceCode } from './models/priceCodes/childrenPriceCode';
-import { NewReleasePriceCode } from './models/priceCodes/newPriceCode';
+import { NewReleasePriceCode } from './models/priceCodes/newReleasePriceCode';
 import { RegularPriceCode } from './models/priceCodes/regularPriceCode';
 import { Store } from './models/store';
 import { PriceCodeRegistry } from './services/priceCodeRegistry';
