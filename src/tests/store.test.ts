@@ -8,7 +8,7 @@ import { PriceCodeRegistry } from '../services/priceCodeRegistry';
 
 
 
-describe("store", () => {
+describe("Store", () => {
 
     let store: Store;
     let registry: PriceCodeRegistry;
@@ -19,8 +19,6 @@ describe("store", () => {
 
     beforeEach(() => {
         registry = PriceCodeRegistry.getInstance();
-
-        registry.clear();
 
         registry.register(RegularPriceCode);
         registry.register(NewReleasePriceCode);
@@ -40,7 +38,11 @@ describe("store", () => {
         
     });
 
-    describe("movies", () => {
+    afterEach(() => {
+        registry.clear();
+    });
+
+    describe("Movies", () => {
 
         it("should be 3", () => {
             expect(store.movies.length).toBe(3);
@@ -58,7 +60,7 @@ describe("store", () => {
 
     })
 
-    describe("customers", () => {
+    describe("Customers", () => {
 
         it("should be 1", () => {
             expect(store.customers.length).toBe(1);
@@ -70,7 +72,7 @@ describe("store", () => {
     })
 
 
-    describe("rentals", () => {
+    describe("Rentals", () => {
 
         it("should be 3", () => {
             expect(customer.rentals.length).toBe(3);
@@ -88,7 +90,7 @@ describe("store", () => {
 
     })
 
-    describe("statement", () => {
+    describe("Customer statement", () => {
 
         it("should be 3", () => {
             const data = customer.getStatementData();
