@@ -23,8 +23,8 @@ export class Customer {
         // determine amounts for each line
 
         for (const rental of this.rentals) {
-            let thisAmount = rental.movie.pricingStrategy.calculatePrice(rental.daysRented)
-            frequentRenterPoints += rental.movie.pricingStrategy.calculateFrequentRenterPoints(rental.daysRented)
+            let thisAmount = rental.calculateAmount()
+            frequentRenterPoints += rental.calculateFrequentRenterPoints()
 
             result += "\t" + rental.movie.title + "\t" + thisAmount + "\n"
             totalAmount += thisAmount
