@@ -1,22 +1,25 @@
 import { PriceCode } from "../constants/PriceCode";
 
 export function calculatePrice(priceCode: PriceCode, daysRented: number) {
-  let thisAmount = 0;
-  if (priceCode === PriceCode.REGULAR) {
-    thisAmount += 2;
-    if (daysRented > 2) {
-      thisAmount += (daysRented - 2) * 1.5;
+  switch (priceCode) {
+    case PriceCode.REGULAR: {
+      const extraDaysCharge = daysRented > 2 ? (daysRented - 2) * 1.5 : 0;
+
+      return 2 + extraDaysCharge;
     }
-  } else if (priceCode === PriceCode.NEW_RELEASE) {
-    thisAmount += daysRented * 3;
-  } else if (priceCode === PriceCode.CHILDREN) {
-    thisAmount += 1.5;
-    if (daysRented > 3) {
-      thisAmount = (daysRented - 3) * 1.5;
+
+    case PriceCode.NEW_RELEASE: {
+      return daysRented * 3;
+    }
+
+    case PriceCode.CHILDREN: {
+      return daysRented > 3 ? (daysRented - 3) * 1.5 : 1.5;
+    }
+
+    default: {
+      throw new Error("Invalid price code");
     }
   }
-
-  return thisAmount;
 }
 
 export function calculatePointsEarned(
