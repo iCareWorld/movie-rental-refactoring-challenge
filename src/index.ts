@@ -9,8 +9,10 @@ const gladiator = store.addMovie("Gladiator", PriceCode.NEW_RELEASE);
 
 const john_smith = store.addCustomer("John Smith");
 
-john_smith.addRental(cinderella, 5);
-john_smith.addRental(star_wars, 5);
-john_smith.addRental(gladiator, 5);
+const invoice = john_smith.addInvoice();
 
-console.log(john_smith.statement());
+invoice.addRental(cinderella, 5);
+invoice.addRental(star_wars, 5);
+invoice.addRental(gladiator, 5);
+
+invoice.printInvoice();
