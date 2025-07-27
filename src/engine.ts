@@ -1,4 +1,5 @@
 import { PriceCode } from "./constants/PriceCode";
+import { calculateCharge } from "./utils/rentalUtils";
 
 class Movie {
   constructor(
@@ -36,20 +37,8 @@ class Customer {
     // determine amounts for each line
 
     for (const each of this.rentals) {
-      let thisAmount = 0;
-      if (each.movie.priceCode === PriceCode.REGULAR) {
-        thisAmount += 2;
-        if (each.daysRented > 2) {
-          thisAmount += (each.daysRented - 2) * 1.5;
-        }
-      } else if (each.movie.priceCode === PriceCode.NEW_RELEASE) {
-        thisAmount += each.daysRented * 3;
-      } else if (each.movie.priceCode === PriceCode.CHILDREN) {
-        thisAmount += 1.5;
-        if (each.daysRented > 3) {
-          thisAmount = (each.daysRented - 3) * 1.5;
-        }
-      }
+      const thisAmount = calculateCharge(each.movie.priceCode, each.daysRented);
+
       // add frequent renter points
       frequentRenterPoints++;
       // add bonus for a two-day new-release rental
@@ -61,6 +50,7 @@ class Customer {
       }
       // show figures for this rental
       result += "\t" + each.movie.title + "\t" + thisAmount + "\n";
+
       totalAmount += thisAmount;
     }
     // add footer lines
