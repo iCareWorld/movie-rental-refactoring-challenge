@@ -44,10 +44,7 @@ class Customer {
 
     for (const each of this.rentals) {
       // add frequent renter points
-      frequentRenterPoints =
-        frequentRenterPoints +
-        calculatePointsEarned(each.movie.priceCode, each.daysRented);
-
+      frequentRenterPoints = frequentRenterPoints + each.pointsEarned;
       // show figures for this rental
       result += "\t" + each.movie.title + "\t" + each.price + "\n";
 
