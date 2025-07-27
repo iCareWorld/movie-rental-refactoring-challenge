@@ -1,4 +1,5 @@
-import { PriceCode, Store } from "./engine";
+import { Store } from "./engine";
+import { PriceCode } from "./constants/PriceCode";
 
 const store = new Store();
 

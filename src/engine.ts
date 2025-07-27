@@ -1,10 +1,4 @@
-export const PriceCode = {
-  REGULAR: "REGULAR",
-  NEW_RELEASE: "NEW_RELEASE",
-  CHILDREN: "CHILDREN",
-} as const;
-
-type PriceCode = (typeof PriceCode)[keyof typeof PriceCode];
+import { PriceCode } from "./constants/PriceCode";
 
 class Movie {
   constructor(
