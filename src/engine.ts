@@ -1,5 +1,5 @@
 import { PriceCode } from "./constants/PriceCode";
-import { calculateCharge, calculatePointsEarned } from "./utils/rentalUtils";
+import { calculatePrice, calculatePointsEarned } from "./utils/rentalUtils";
 
 class Movie {
   constructor(
@@ -37,7 +37,7 @@ class Customer {
     // determine amounts for each line
 
     for (const each of this.rentals) {
-      const thisAmount = calculateCharge(each.movie.priceCode, each.daysRented);
+      const thisAmount = calculatePrice(each.movie.priceCode, each.daysRented);
 
       // add frequent renter points
       frequentRenterPoints =

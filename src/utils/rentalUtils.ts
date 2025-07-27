@@ -1,6 +1,6 @@
 import { PriceCode } from "../constants/PriceCode";
 
-export function calculateCharge(priceCode: PriceCode, daysRented: number) {
+export function calculatePrice(priceCode: PriceCode, daysRented: number) {
   let thisAmount = 0;
   if (priceCode === PriceCode.REGULAR) {
     thisAmount += 2;
