@@ -1,10 +1,10 @@
-import { Store } from "./engine";
+import { PriceCode, Store } from "./engine";
 
 const store = new Store();
 
-const cinderella = store.addMovie("Cinderella", Store.PRICE_CODE_CHILDREN);
-const star_wars = store.addMovie("Star Wars", Store.PRICE_CODE_REGULAR);
-const gladiator = store.addMovie("Gladiator", Store.PRICE_CODE_NEW_RELEASE);
+const cinderella = store.addMovie("Cinderella", PriceCode.CHILDREN);
+const star_wars = store.addMovie("Star Wars", PriceCode.REGULAR);
+const gladiator = store.addMovie("Gladiator", PriceCode.NEW_RELEASE);
 
 const john_smith = store.addCustomer("John Smith");
 
