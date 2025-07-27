@@ -1,12 +1,6 @@
 import { PriceCode } from "./constants/PriceCode";
+import { Movie } from "./entities/Movie";
 import { calculatePrice, calculatePointsEarned } from "./utils/rentalUtils";
-
-class Movie {
-  constructor(
-    public readonly title: string,
-    public readonly priceCode: keyof typeof PriceCode,
-  ) {}
-}
 
 class Rental {
   public readonly price: number;
