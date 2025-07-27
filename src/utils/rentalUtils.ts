@@ -18,3 +18,14 @@ export function calculateCharge(priceCode: PriceCode, daysRented: number) {
 
   return thisAmount;
 }
+
+export function calculatePointsEarned(
+  priceCode: PriceCode,
+  daysRented: number,
+) {
+  // bonus for a two-day new-release rental
+  const bonusPoints =
+    priceCode === PriceCode.NEW_RELEASE && daysRented > 1 ? 1 : 0;
+
+  return 1 + bonusPoints;
+}
