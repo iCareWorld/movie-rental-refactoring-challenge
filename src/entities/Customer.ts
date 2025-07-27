@@ -14,7 +14,10 @@ export class Customer {
   }
 
   addInvoice() {
-    this.invoices.push(new Invoice(this.name));
+    const newInvoice = new Invoice(this.name);
+    this.invoices.push(newInvoice);
+
+    return newInvoice;
   }
 
   addRental(movie: Movie, daysRented: number) {
