@@ -9,10 +9,14 @@ class Movie {
 }
 
 class Rental {
+  public readonly price: number;
+
   constructor(
     public readonly movie: Movie,
     public readonly daysRented: number,
-  ) {}
+  ) {
+    this.price = calculatePrice(movie.priceCode, daysRented);
+  }
 }
 
 class Customer {
