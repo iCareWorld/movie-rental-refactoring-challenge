@@ -41,17 +41,15 @@ class Customer {
     // determine amounts for each line
 
     for (const each of this.rentals) {
-      const thisAmount = calculatePrice(each.movie.priceCode, each.daysRented);
-
       // add frequent renter points
       frequentRenterPoints =
         frequentRenterPoints +
         calculatePointsEarned(each.movie.priceCode, each.daysRented);
 
       // show figures for this rental
-      result += "\t" + each.movie.title + "\t" + thisAmount + "\n";
+      result += "\t" + each.movie.title + "\t" + each.price + "\n";
 
-      totalAmount += thisAmount;
+      totalAmount += each.price;
     }
     // add footer lines
     result += "Amount owed is " + totalAmount + "\n";
