@@ -24,7 +24,7 @@ export class Invoice {
   }
 
   printInvoice() {
-    console.log("Rental record for " + this.customerName + "\n");
+    console.log("Rental record for " + this.customerName);
 
     let lineItems = "";
 
@@ -33,7 +33,7 @@ export class Invoice {
     }
 
     console.log(lineItems);
-    console.log("Amount owed is " + this.totalPrice + "\n");
+    console.log("Amount owed is " + this.totalPrice);
     console.log(
       "You earned " + this.totalPointsEarned + " frequent renter points.",
     );
