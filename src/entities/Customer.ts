@@ -1,13 +1,20 @@
+import { Invoice } from "./Invoice";
 import { Movie } from "./Movie";
 import { Rental } from "./Rental";
 
 export class Customer {
   name: string;
+  invoices: Invoice[];
   rentals: Rental[];
 
   constructor(name: string) {
     this.name = name;
+    this.invoices = [];
     this.rentals = [];
+  }
+
+  addInvoice() {
+    this.invoices.push(new Invoice(this.name));
   }
 
   addRental(movie: Movie, daysRented: number) {
