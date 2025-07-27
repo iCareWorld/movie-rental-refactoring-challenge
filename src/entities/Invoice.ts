@@ -25,6 +25,14 @@ export class Invoice {
 
   printInvoice() {
     console.log("Rental record for " + this.customerName + "\n");
+
+    let lineItems = "";
+
+    for (const each of this.rentals) {
+      lineItems += "\t" + each.movie.title + "\t" + each.price + "\n";
+    }
+
+    console.log(lineItems);
     console.log("Amount owed is " + this.totalPrice + "\n");
     console.log(
       "You earned " + this.totalPointsEarned + " frequent renter points.",
