@@ -1,4 +1,3 @@
-import { calculatePrice } from "../utils/rentalUtils";
 import { Movie } from "./Movie";
 import { Rental } from "./Rental";
 

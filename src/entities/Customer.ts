@@ -1,6 +1,4 @@
 import { Invoice } from "./Invoice";
-import { Movie } from "./Movie";
-import { Rental } from "./Rental";
 
 export class Customer {
   name: string;
