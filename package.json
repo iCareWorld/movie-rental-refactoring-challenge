@@ -7,7 +7,8 @@
     "start": "node dist/index.js",
     "dev": "tsc --watch",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "format": "prettier . --write"
   },
   "keywords": [],
   "author": "sutts101",
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "jest": "^29.7.0",
+    "prettier": "3.6.2",
     "ts-jest": "^29.3.3",
     "typescript": "^5.8.3"
   }
