@@ -5,12 +5,10 @@ import { Rental } from "./Rental";
 export class Customer {
   name: string;
   invoices: Invoice[];
-  rentals: Rental[];
 
   constructor(name: string) {
     this.name = name;
     this.invoices = [];
-    this.rentals = [];
   }
 
   addInvoice() {
