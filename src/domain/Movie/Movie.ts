@@ -1,4 +1,4 @@
-import { RentalPolicy } from "../rentalPolicy/RentalPolicy";
+import { RentalPolicy } from "../../rentalPolicy/RentalPolicy";
 
 export class Movie {
   constructor(

@@ -1,4 +1,4 @@
-import { RentalPolicy } from "./RentalPolicy";
+import { RentalPolicy } from "../RentalPolicy";
 
 export class ChildrenRentalPolicy implements RentalPolicy {
   calculatePrice(daysRented: number): number {

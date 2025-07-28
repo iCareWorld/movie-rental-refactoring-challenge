@@ -1,4 +1,4 @@
-import { MovieRental } from "./MovieRental";
+import { MovieRental } from "../MovieRental/MovieRental";
 
 export class Customer {
   private rentals: MovieRental[] = [];

@@ -1,4 +1,4 @@
-import { RentalPolicy } from "./RentalPolicy";
+import { RentalPolicy } from "../RentalPolicy";
 
 export class RegularRentalPolicy implements RentalPolicy {
   calculatePrice(daysRented: number): number {

@@ -1,4 +1,4 @@
-import { Customer } from "../domain/Customer";
+import { Customer } from "../domain/Customer/Customer";
 
 export class StatementFormatter {
   format(customer: Customer): string {

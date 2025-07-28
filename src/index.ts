@@ -1,9 +1,9 @@
-import { Customer } from "./domain/Customer";
-import { Movie } from "./domain/Movie";
-import { MovieRental } from "./domain/MovieRental";
-import { ChildrenRentalPolicy } from "./rentalPolicy/ChildrenRentalPolicy";
-import { NewReleaseRentalPolicy } from "./rentalPolicy/NewReleaseRentalPolicy";
-import { RegularRentalPolicy } from "./rentalPolicy/RegularRentalPolicy";
+import { Customer } from "./domain/Customer/Customer";
+import { Movie } from "./domain/Movie/Movie";
+import { MovieRental } from "./domain/MovieRental/MovieRental";
+import { ChildrenRentalPolicy } from "./rentalPolicy/ChildrenRentalPolicy/ChildrenRentalPolicy";
+import { NewReleaseRentalPolicy } from "./rentalPolicy/NewReleaseRentalPolicy/NewReleaseRentalPolicy";
+import { RegularRentalPolicy } from "./rentalPolicy/RegularRentalPolicy/RegularRentalPolicy";
 import { StatementFormatter } from "./services/StatementFormatter";
 
 // Setup
