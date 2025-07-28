@@ -1,21 +1,22 @@
-import { Store } from './engine'
+import { Store } from './store'
 
-const store = new Store()
 
-const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN)
-const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR)
-const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE)
-
-const john_smith = store.addCustomer('John Smith')
-
-john_smith.addRental(cinderella, 5)
-john_smith.addRental(star_wars, 5)
-john_smith.addRental(gladiator, 5)
+let store = new Store()
 
 describe("store", () => {
 
-    describe("movies", () => {
+    beforeEach(() => {
+        store = new Store()
+        const john_smith = store.addCustomer('John Smith')
+        const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN)
+        const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR)
+        const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE)
+        john_smith.addRental(cinderella, 5)
+        john_smith.addRental(star_wars, 5)
+        john_smith.addRental(gladiator, 5)
+    })
 
+    describe("movies", () => {
         it("should be 3", () => {
             expect(store.movies.length).toBe(3)
         })
@@ -33,6 +34,7 @@ describe("store", () => {
     })
 
     describe("customers", () => {
+        store.addCustomer('John Smith')
 
         it("should be 1", () => {
             expect(store.customers.length).toBe(1)
@@ -41,30 +43,69 @@ describe("store", () => {
             expect(store.customers[0].name).toBe('John Smith')
         })
 
+        it("should find customer by name", () => {
+            let result = store.findCustomer('John Smith')
+            expect(result).toBeTruthy()
+            expect(result?.name).toBe('John Smith')
+        })
+
+        it("should return null if customer doesn't exist", () => {
+            let result = store.findCustomer('Paul Smith')
+            expect(result).toBeNull()
+
+        })
     })
 
-    let customer = store.customers[0]
 
     describe("rentals", () => {
+        const john_smith = store.addCustomer('John Smith')
+        const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN)
+        const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR)
+        const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE)
+
+        john_smith.addRental(cinderella, 5)
+        john_smith.addRental(star_wars, 5)
+        john_smith.addRental(gladiator, 5)
 
         it("should be 3", () => {
-            expect(customer.rentals.length).toBe(3)
+            expect(john_smith.rentals.length).toBe(3)
         })
         it("should be for the correct movies", () => {
-            expect(customer.rentals[0].movie.title).toBe('Cinderella')
-            expect(customer.rentals[1].movie.title).toBe('Star Wars')
-            expect(customer.rentals[2].movie.title).toBe('Gladiator')
+            expect(john_smith.rentals[0].movie.title).toBe('Cinderella')
+            expect(john_smith.rentals[1].movie.title).toBe('Star Wars')
+            expect(john_smith.rentals[2].movie.title).toBe('Gladiator')
         })
         it("should be for the correct number of days rented", () => {
-            expect(customer.rentals[0].daysRented).toBe(5)
-            expect(customer.rentals[1].daysRented).toBe(5)
-            expect(customer.rentals[2].daysRented).toBe(5)
+            expect(john_smith.rentals[0].daysRented).toBe(5)
+            expect(john_smith.rentals[1].daysRented).toBe(5)
+            expect(john_smith.rentals[2].daysRented).toBe(5)
         })
 
     })
 
     describe("statement", () => {
+        const customer = store.addCustomer('John Smith')
+        const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN)
+        const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR)
+        const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE)
 
+        customer.addRental(cinderella, 5)
+        customer.addRental(star_wars, 5)
+        customer.addRental(gladiator, 5)
+
+        console.log(customer.statement())
+
+
+        /**
+         * 
+         *  Rental record for John Smith
+        Cinderella      3
+        Star Wars       6.5
+        Gladiator       15
+    Amount owed is 24.5
+    You earned 4 frequent renter points.
+         * 
+         */
         it("should be 3", () => {
             // At this point, the structure of the program begins getting in the
             // way of testing. Rentals are imbedded in the Customer object, but
