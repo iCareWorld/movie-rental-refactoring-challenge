@@ -2,8 +2,8 @@ import { Movie } from './Movie'
 import { Rental } from './Rental'
 
 export class Customer {
-    name: string;
-    rentals: Rental[];
+    name: string
+    rentals: Rental[]
 
     constructor(name: string) {
         this.name = name
@@ -11,7 +11,7 @@ export class Customer {
     }
 
     addRental(movie: Movie, daysRented: number) {
-        let rental = new Rental(movie, daysRented)
+        const rental = new Rental(movie, daysRented)
         this.rentals.push(rental)
         return rental
     }
