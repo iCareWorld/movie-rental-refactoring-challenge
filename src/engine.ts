@@ -1,32 +1,67 @@
-class PriceCode {
-    constructor(public readonly name: string) {}
+abstract class Price {
+    abstract getCharge(daysRented: number): number
+    abstract getFrequentRenterPoints(daysRented: number): number
+}
+
+class RegularPrice extends Price {
+    getCharge(daysRented: number): number {
+        let result = 2
+        if (daysRented > 2) {
+            result += (daysRented - 2) * 1.5
+        }
+        return result
+    }
+
+    getFrequentRenterPoints(_daysRented: number): number {
+        return 1
+    }
+}
+
+class NewReleasePrice extends Price {
+    getCharge(daysRented: number): number {
+        return daysRented * 3
+    }
+
+    getFrequentRenterPoints(daysRented: number): number {
+        return daysRented > 1 ? 2 : 1
+    }
+}
+
+class ChildrensPrice extends Price {
+    getCharge(daysRented: number): number {
+        let result = 1.5
+        if (daysRented > 3) {
+            result += (daysRented - 3) * 1.5
+        }
+        return result
+    }
+
+    getFrequentRenterPoints(_daysRented: number): number {
+        return 1
+    }
 }
 
 class Movie {
-    constructor(public readonly title: string, public readonly priceCode: PriceCode) {}
+    constructor(public readonly title: string, private price: Price) {}
+
+    getCharge(daysRented: number): number {
+        return this.price.getCharge(daysRented)
+    }
+
+    getFrequentRenterPoints(daysRented: number): number {
+        return this.price.getFrequentRenterPoints(daysRented)
+    }
 }
 
 class Rental {
     constructor(public readonly movie: Movie, public readonly daysRented: number) {}
 
     getCharge(): number {
-        let result = 0
-        if (this.movie.priceCode.name === 'REGULAR') {
-            result += 2
-            if (this.daysRented > 2) {
-                result += ((this.daysRented - 2) * 1.5)
-            }
-        }
-        else if (this.movie.priceCode.name === 'NEW RELEASE') {
-            result += this.daysRented * 3
-        }
-        else if (this.movie.priceCode.name === 'CHILDREN') {
-            result += 1.5;
-            if (this.daysRented > 3) {
-                result += (this.daysRented - 3) * 1.5
-            }
-        }
-        return result
+        return this.movie.getCharge(this.daysRented)
+    }
+
+    getFrequentRenterPoints(): number {
+        return this.movie.getFrequentRenterPoints(this.daysRented)
     }
 }
 
@@ -55,11 +90,8 @@ class Customer {
             let thisAmount = each.getCharge()
             
             // add frequent renter points
-            frequentRenterPoints++;
-            // add bonus for a two-day new-release rental
-            if ((each.movie.priceCode.name === 'NEW RELEASE') && (each.daysRented > 1)) {
-                frequentRenterPoints ++
-            }
+            frequentRenterPoints += each.getFrequentRenterPoints()
+            
             // show figures for this rental
             result += "\t" + each.movie.title + "\t" + thisAmount + "\n"
             totalAmount += thisAmount
@@ -72,9 +104,9 @@ class Customer {
 }
 
 export class Store {
-    static readonly PRICE_CODE_REGULAR: PriceCode = new PriceCode('REGULAR')
-    static readonly PRICE_CODE_CHILDREN: PriceCode = new PriceCode('CHILDREN')
-    static readonly PRICE_CODE_NEW_RELEASE: PriceCode = new PriceCode('NEW RELEASE')
+    static readonly PRICE_CODE_REGULAR: Price = new RegularPrice()
+    static readonly PRICE_CODE_CHILDREN: Price = new ChildrensPrice()
+    static readonly PRICE_CODE_NEW_RELEASE: Price = new NewReleasePrice()
 
     movies: Movie[]
     customers: Customer[]
@@ -84,8 +116,8 @@ export class Store {
         this.customers = []
     }
 
-    addMovie(name: string, priceCode: PriceCode) {
-        let movie = new Movie(name, priceCode)
+    addMovie(name: string, price: Price) {
+        let movie = new Movie(name, price)
         this.movies.push(movie)
         return movie
     }

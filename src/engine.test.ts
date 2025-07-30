@@ -25,9 +25,9 @@ describe("store", () => {
             expect(store.movies[2].title).toBe('Gladiator')
         })
         it("should have the correct price codes", () => {
-            expect(store.movies[0].priceCode.name).toBe('CHILDREN')
-            expect(store.movies[1].priceCode.name).toBe('REGULAR')
-            expect(store.movies[2].priceCode.name).toBe('NEW RELEASE')
+            expect(store.movies[0].getCharge(1)).toBe(1.5)  // Children base price
+            expect(store.movies[1].getCharge(1)).toBe(2)    // Regular base price
+            expect(store.movies[2].getCharge(1)).toBe(3)    // New Release base price
         })
 
     })
