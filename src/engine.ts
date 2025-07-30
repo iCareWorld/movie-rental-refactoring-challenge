@@ -25,6 +25,26 @@ class Customer {
         return rental
     }
 
+    private amountFor(rental: Rental): number {
+        let result = 0
+        if (rental.movie.priceCode.name === 'REGULAR') {
+            result += 2
+            if (rental.daysRented > 2) {
+                result += ((rental.daysRented - 2) * 1.5)
+            }
+        }
+        else if (rental.movie.priceCode.name === 'NEW RELEASE') {
+            result += rental.daysRented * 3
+        }
+        else if (rental.movie.priceCode.name === 'CHILDREN') {
+            result += 1.5;
+            if (rental.daysRented > 3) {
+                result += (rental.daysRented - 3) * 1.5
+            }
+        }
+        return result
+    }
+
     statement() {
         let totalAmount = 0
         let frequentRenterPoints = 0
@@ -32,22 +52,8 @@ class Customer {
         // determine amounts for each line
 
         for (const each of this.rentals) {
-            let thisAmount = 0
-            if (each.movie.priceCode.name === 'REGULAR') {
-                thisAmount += 2
-                if (each.daysRented > 2) {
-                    thisAmount += ((each.daysRented - 2) * 1.5)
-                }
-            }
-            else if (each.movie.priceCode.name === 'NEW RELEASE') {
-                thisAmount += each.daysRented * 3
-            }
-            else if (each.movie.priceCode.name === 'CHILDREN') {
-                thisAmount += 1.5;
-                if (each.daysRented > 3) {
-                    thisAmount += (each.daysRented - 3) * 1.5
-                }
-            }
+            let thisAmount = this.amountFor(each)
+            
             // add frequent renter points
             frequentRenterPoints++;
             // add bonus for a two-day new-release rental
