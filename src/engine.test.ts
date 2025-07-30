@@ -99,7 +99,7 @@ describe("store", () => {
             // object properly, and that the Statement() method is
             // generating a statement in the expected format.
             expect(statementTokens[2]).toBe('Cinderella')
-            expect(statementTokens[3]).toBe('3')
+            expect(statementTokens[3]).toBe('4.5')
             expect(statementTokens[5]).toBe('Star Wars')
             expect(statementTokens[6]).toBe('6.5')
             expect(statementTokens[8]).toBe('Gladiator')

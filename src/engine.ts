@@ -45,7 +45,7 @@ class Customer {
             else if (each.movie.priceCode.name === 'CHILDREN') {
                 thisAmount += 1.5;
                 if (each.daysRented > 3) {
-                    thisAmount = (each.daysRented - 3) * 1.5
+                    thisAmount += (each.daysRented - 3) * 1.5
                 }
             }
             // add frequent renter points
