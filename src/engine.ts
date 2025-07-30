@@ -8,6 +8,26 @@ class Movie {
 
 class Rental {
     constructor(public readonly movie: Movie, public readonly daysRented: number) {}
+
+    getCharge(): number {
+        let result = 0
+        if (this.movie.priceCode.name === 'REGULAR') {
+            result += 2
+            if (this.daysRented > 2) {
+                result += ((this.daysRented - 2) * 1.5)
+            }
+        }
+        else if (this.movie.priceCode.name === 'NEW RELEASE') {
+            result += this.daysRented * 3
+        }
+        else if (this.movie.priceCode.name === 'CHILDREN') {
+            result += 1.5;
+            if (this.daysRented > 3) {
+                result += (this.daysRented - 3) * 1.5
+            }
+        }
+        return result
+    }
 }
 
 class Customer {
@@ -25,26 +45,6 @@ class Customer {
         return rental
     }
 
-    private amountFor(rental: Rental): number {
-        let result = 0
-        if (rental.movie.priceCode.name === 'REGULAR') {
-            result += 2
-            if (rental.daysRented > 2) {
-                result += ((rental.daysRented - 2) * 1.5)
-            }
-        }
-        else if (rental.movie.priceCode.name === 'NEW RELEASE') {
-            result += rental.daysRented * 3
-        }
-        else if (rental.movie.priceCode.name === 'CHILDREN') {
-            result += 1.5;
-            if (rental.daysRented > 3) {
-                result += (rental.daysRented - 3) * 1.5
-            }
-        }
-        return result
-    }
-
     statement() {
         let totalAmount = 0
         let frequentRenterPoints = 0
@@ -52,7 +52,7 @@ class Customer {
         // determine amounts for each line
 
         for (const each of this.rentals) {
-            let thisAmount = this.amountFor(each)
+            let thisAmount = each.getCharge()
             
             // add frequent renter points
             frequentRenterPoints++;
