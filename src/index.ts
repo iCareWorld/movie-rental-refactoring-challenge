@@ -1,4 +1,4 @@
-import { Store } from './engine'
+import { Store } from './infrastructure/Store'
 
 const store = new Store()
 
