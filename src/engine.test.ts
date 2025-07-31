@@ -1,33 +1,34 @@
 import { Store } from './engine'
+import {PriceCode} from "./models/price_code";
 
 const store = new Store()
 
-const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN)
-const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR)
-const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE)
+const cinderella = store.addMovie('Cinderella', PriceCode.CHILDREN)
+const star_wars  = store.addMovie('Star Wars', PriceCode.REGULAR)
+const gladiator  = store.addMovie('Gladiator', PriceCode.NEW_RELEASE)
 
 const john_smith = store.addCustomer('John Smith')
 
-john_smith.addRental(cinderella, 5)
-john_smith.addRental(star_wars, 5)
-john_smith.addRental(gladiator, 5)
+store.addRental(john_smith, cinderella, 5)
+store.addRental(john_smith, star_wars, 5)
+store.addRental(john_smith, gladiator, 5)
 
 describe("store", () => {
 
     describe("movies", () => {
 
         it("should be 3", () => {
-            expect(store.movies.length).toBe(3)
+            expect(store.getMovies().length).toBe(3)
         })
         it("should have the correct titles", () => {
-            expect(store.movies[0].title).toBe('Cinderella')
-            expect(store.movies[1].title).toBe('Star Wars')
-            expect(store.movies[2].title).toBe('Gladiator')
+            expect(store.getMovies()[0].title).toBe('Cinderella')
+            expect(store.getMovies()[1].title).toBe('Star Wars')
+            expect(store.getMovies()[2].title).toBe('Gladiator')
         })
         it("should have the correct price codes", () => {
-            expect(store.movies[0].priceCode.name).toBe('CHILDREN')
-            expect(store.movies[1].priceCode.name).toBe('REGULAR')
-            expect(store.movies[2].priceCode.name).toBe('NEW RELEASE')
+            expect(store.getMovies()[0].priceCode.name).toBe('CHILDREN')
+            expect(store.getMovies()[1].priceCode.name).toBe('REGULAR')
+            expect(store.getMovies()[2].priceCode.name).toBe('NEW RELEASE')
         })
 
     })
@@ -35,30 +36,31 @@ describe("store", () => {
     describe("customers", () => {
 
         it("should be 1", () => {
-            expect(store.customers.length).toBe(1)
+            expect(store.getCustomers().length).toBe(1)
         })
         it("should have the correct name", () => {
-            expect(store.customers[0].name).toBe('John Smith')
+            expect(store.getCustomers()[0].name).toBe('John Smith')
         })
 
     })
 
-    let customer = store.customers[0]
+    let customer = store.getCustomers()[0]
+    let customerRentals = store.findRentalsForCustomer(customer)
 
     describe("rentals", () => {
 
         it("should be 3", () => {
-            expect(customer.rentals.length).toBe(3)
+            expect(customerRentals.length).toBe(3)
         })
         it("should be for the correct movies", () => {
-            expect(customer.rentals[0].movie.title).toBe('Cinderella')
-            expect(customer.rentals[1].movie.title).toBe('Star Wars')
-            expect(customer.rentals[2].movie.title).toBe('Gladiator')
+            expect(customerRentals[0].movie.title).toBe('Cinderella')
+            expect(customerRentals[1].movie.title).toBe('Star Wars')
+            expect(customerRentals[2].movie.title).toBe('Gladiator')
         })
         it("should be for the correct number of days rented", () => {
-            expect(customer.rentals[0].daysRented).toBe(5)
-            expect(customer.rentals[1].daysRented).toBe(5)
-            expect(customer.rentals[2].daysRented).toBe(5)
+            expect(customerRentals[0].daysRented).toBe(5)
+            expect(customerRentals[1].daysRented).toBe(5)
+            expect(customerRentals[2].daysRented).toBe(5)
         })
 
     })
@@ -67,13 +69,13 @@ describe("store", () => {
 
         it("should be 3", () => {
             // At this point, the structure of the program begins getting in the
-            // way of testing. Rentals are imbedded in the Customer object, but
+            // way of testing. Rentals are embedded in the Customer object, but
             // there is no property to access them. They can only be accessed
-            // internally, by the Statement() method, which imbeds them in the
+            // internally, by the Statement() method, which embeds them in the
             // text string passed as it's return value. So, to get these amounts,
             // we will have to parse that value
             const statementTokens = []
-            const lines = customer.statement().split("\n")
+            const lines = store.getStatementForCustomer(customer).split("\n")
             for (let i=0; i<lines.length; i++) {
                 let lineTokens = lines[i].split("\t")
                 for (let j=0; j<lineTokens.length; j++) {
