@@ -1,15 +1,18 @@
-import { Store } from './engine'
+import {Store} from './engine'
+import {PriceCode} from "./models/price_code";
 
 const store = new Store()
 
-const cinderella = store.addMovie('Cinderella', Store.PRICE_CODE_CHILDREN)
-const star_wars  = store.addMovie('Star Wars', Store.PRICE_CODE_REGULAR)
-const gladiator  = store.addMovie('Gladiator', Store.PRICE_CODE_NEW_RELEASE)
+const cinderella = store.addMovie('Cinderella', PriceCode.CHILDREN)
+const star_wars  = store.addMovie('Star Wars', PriceCode.REGULAR)
+const gladiator  = store.addMovie('Gladiator', PriceCode.NEW_RELEASE)
 
 const john_smith = store.addCustomer('John Smith')
 
-john_smith.addRental(cinderella, 5)
-john_smith.addRental(star_wars, 5)
-john_smith.addRental(gladiator, 5)
+// Add rentals for John Smith
+store.addRental(john_smith, cinderella, 5)
+store.addRental(john_smith, star_wars, 5)
+store.addRental(john_smith, gladiator, 5)
 
-console.log(john_smith.statement())
+// Generate and print the statement for John Smith
+console.log(store.getStatementForCustomer(john_smith))
